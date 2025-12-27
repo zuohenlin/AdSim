@@ -1,32 +1,9 @@
-# Adsim
+﻿# Adsim
 
 ![Adsim Logo](./static/image/adsim_logo.png)
 
-E-commerce ad campaign rehearsal for the competition track:  
-compare A/B/C strategies and export a printable report.
-
-## Contents
-
-- [Core Flow](#core-flow)
-- [Two Modes](#two-modes)
-- [Mode Pros and Cons](#mode-pros-and-cons)
-- [Business Value](#business-value)
-- [Key Innovations](#key-innovations)
-- [Key Creative Ideas](#key-creative-ideas)
-- [Key Entrepreneurship Points](#key-entrepreneurship-points)
-- [Architecture](#architecture)
-- [Flow](#flow)
-- [UI Screenshots](#ui-screenshots)
-- [Data Dictionary](#data-dictionary)
-- [Metric Definitions](#metric-definitions)
-- [Competitive Comparison](#competitive-comparison)
-- [Scoring Alignment](#scoring-alignment)
-- [API List and Samples](#api-list-and-samples)
-- [Quick Start (Windows)](#quick-start-windows)
-- [3-Minute Demo](#3-minute-demo)
-- [Project Structure](#project-structure)
-- [FAQ](#faq)
-- [Credits](#credits)
+E-commerce ad campaign rehearsal for the competition track.  
+Compare A/B/C strategies with samples and export a printable report.
 
 ## Core Flow
 
@@ -34,32 +11,30 @@ Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
 
 ## Two Modes
 
-- **Adsim data pipeline**: ad data, strategy comparison, report export.
+- **Adsim data pipeline**: ad/order data driven strategy comparison and report export.
 - **Original simulation entry**: text/file-driven multi-agent simulation (inherited from MiroFish).
 
-## Mode Pros and Cons
+### Mode Pros and Cons
 
 | Mode | Pros | Cons | Best For |
 | --- | --- | --- | --- |
 | Adsim data pipeline | No LLM dependency, stable demos, controllable data | Depends on data quality | Competition demo, strategy review |
 | Original simulation entry | Handles unstructured text, strong explainability | Requires LLM API and external services | Public opinion simulation, multi-agent rehearsal |
 
-## Business Value
+## Project Summary
 
-- **Fast rehearsal** with minimal input data
-- **Explainable decisions** via evidence cards
-- **Repeatable demo** for evaluation and teaching
+Adsim turns ad data into explainable strategy comparisons, with evidence cards and interval estimates for fast evaluation and defense demos.
 
 ## Key Innovations
 
-- **Explainable comparison** instead of raw metrics only
-- **Interval estimates** to reflect uncertainty
-- **Demo-friendly** flow within minutes
+- **Explainable comparison**: metrics + drivers + evidence cards
+- **Interval estimates** for uncertainty
+- **End-to-end demo** within minutes
 
 ## Key Creative Ideas
 
-- **Dual-mode presentation** for both data-driven and text-driven demos
-- **Evidence-card storytelling** for explainable outcomes
+- **Dual-mode presentation** for data-driven and text-driven demos
+- **Evidence-card storytelling** for clear defense narrative
 - **Sample-first onboarding** with ready-to-run assets
 
 ## Key Entrepreneurship Points
@@ -81,8 +56,6 @@ Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
 ![Import](./docs/ui-import.png)
 ![Strategy](./docs/ui-strategy.png)
 ![Compare](./docs/ui-compare.png)
-
-> Placeholder images, replace with actual screenshots.
 
 ## Data Dictionary
 
@@ -117,57 +90,6 @@ Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
 - **CPA** = spend / orders  
 - **ROI_GP** = gross_profit / spend (fallback to gmv * margin_rate)  
 - **Refund Rate** = refund_orders / total_orders
-
-## Competitive Comparison
-
-| Dimension | Adsim | Generic BI Dashboard | Traditional Review |
-| --- | --- | --- | --- |
-| Goal | Strategy rehearsal | Data display | Historical review |
-| Output | Compare + evidence cards + report | Charts | Summary conclusion |
-| Explainability | High | Medium | Low |
-| Demo speed | Fast (3-minute loop) | Medium | Slow |
-| Competition fit | High | Medium | Medium |
-
-### A/B Testing Platforms (Official)
-
-- [Optimizely Web Experimentation](https://www.optimizely.com/products/web-experimentation/)
-- [VWO Testing](https://vwo.com/testing/)
-- [AB Tasty Web Experimentation](https://www.abtasty.com/web-experimentation/)
-
-### Analytics Platforms (Official)
-
-- [Google Analytics](https://analytics.google.com/analytics/web/)
-- [Adobe Analytics](https://experienceleague.adobe.com/en/docs/analytics)
-- [Mixpanel](https://mixpanel.com/)
-- [Amplitude Analytics](https://amplitude.com/amplitude-analytics)
-
-### China Ad/Commerce Platforms (Official)
-
-- [OceanEngine (Juliang)](https://www.oceanengine.com/)
-- [Tencent Ads](https://e.qq.com/)
-- [Alimama](https://www.alimama.com/)
-- [Jingzhuntong (JD Ads)](https://jzt.jd.com/)
-- [Umeng+](https://www.umeng.com/)
-
-### Product Analysis Table (Features + Use Cases)
-
-| Product Type | Representative Platforms (Official) | Focus | Use Cases | Pricing | Deployment Model | Data Residency | Compliance Certifications | Typical Industry Cases | Integration |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Strategy rehearsal + report | Adsim (this project) | Strategy compare, evidence cards, printable report | Competition demo, teaching, fast evaluation | Local deployment | Local | Local/self-hosted | Depends on deployment environment | Classroom demos, coursework, defense | Low (API + samples) |
-| A/B testing platforms | Optimizely, VWO, AB Tasty | Experiment design, traffic split, evaluation | UX optimization for web/app | Commercial subscription | Per vendor disclosure | Per vendor disclosure | Per vendor disclosure | Ecommerce conversion, content recommendation, signup optimization | Medium (SDK/tagging) |
-| Product/behavior analytics | Google Analytics, Mixpanel, Amplitude, Adobe Analytics | Event/funnel/retention analysis | Growth analysis, conversion insights | Commercial subscription | Per vendor disclosure | Per vendor disclosure | Per vendor disclosure | SaaS growth, app activation, content ops | Medium (tracking/data ingest) |
-| Ad platforms (China) | OceanEngine, Tencent Ads, Alimama, Jingzhuntong | Media buying, account management | Campaign execution and optimization | Platform rules + ad budget | Per vendor disclosure | Per vendor disclosure | Per vendor disclosure | Ecommerce promotion, brand exposure, local commerce | Medium-high (account/pixel/attribution) |
-| Analytics (China) | Umeng+ | Data analytics and monitoring | China site/app analytics | Commercial subscription | Per vendor disclosure | Per vendor disclosure | Per vendor disclosure | App operations, mini-program analytics, web analytics | Medium (SDK/data ingest) |
-
-## Scoring Alignment
-
-| Scoring Focus | Adsim Capability | Notes |
-| --- | --- | --- |
-| Business value | Compare + export report | Supports decision and reporting |
-| Data analysis | Metric definitions + intervals | Explainable KPIs |
-| Innovation | Evidence cards + risk scoring | Interpretable insights |
-| Practicality | API + samples | Quick reproduction |
-| Completeness | End-to-end loop | From import to report |
 
 ## API List and Samples
 
@@ -207,18 +129,6 @@ cd .
 npm run setup:all
 ```
 
-Or step by step:
-
-```powershell
-cd .
-
-# Root + frontend
-npm run setup
-
-# Backend (uv)
-npm run setup:backend
-```
-
 ### Run
 
 ```powershell
@@ -229,7 +139,7 @@ npm run dev
 ```
 
 Default ports:
-- Frontend: `http://localhost:3000` (auto-increments if busy)
+- Frontend: `http://localhost:3000`
 - Backend: `http://localhost:5001`
 
 Health check:
@@ -242,6 +152,22 @@ Expected:
 
 ```json
 {"status":"ok","service":"Adsim Backend"}
+```
+
+## Docker (Multi-Container)
+
+```powershell
+docker compose up --build
+```
+
+Frontend/Backend:
+- `http://localhost:3000`
+- `http://localhost:5001`
+
+Override for local backend:
+
+```powershell
+docker compose -f docker-compose.yml -f docker-compose.override.local.yml up --build
 ```
 
 ## 3-Minute Demo
@@ -291,21 +217,20 @@ Open the returned `download_url` in a browser.
 AdSim/
 |-- backend/                 # Flask backend
 |-- frontend/                # Vite + Vue frontend
-|-- samples/                 # Minimal datasets and requests
-|-- reports/sample/          # Report placeholder
+|-- samples/                 # Sample datasets and requests
 |-- docs/                    # Competition docs
 |-- static/                  # Static images
-|-- cache/                   # Runtime cache (ignored)
-|-- data_store/              # Dataset outputs (ignored)
 `-- README-EN.md
 ```
+
+Note: `data_store/`, `cache/`, and `reports/` are runtime outputs generated on demand and should not be committed.
 
 ## FAQ
 
 ### 1) Port in use
 
-- Frontend 3000 is busy -> Vite switches to 3001/3002
-- Backend 5001 is busy -> close the process or set `FLASK_PORT`
+- Frontend 3000 busy -> Vite switches to 3001/3002
+- Backend 5001 busy -> close the process or set `FLASK_PORT`
 
 ### 2) .env config
 

@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - ./.env
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./data_store:/app/data_store
+      - ./cache:/app/cache
+      - ./reports:/app/reports
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: http://backend:5001
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
