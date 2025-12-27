@@ -2,11 +2,37 @@
 
 ![Adsim Logo](./static/image/adsim_logo.png)
 
-Ad campaign planning: A/B/C strategy rehearsal and report.
+Ad campaign planning for the competition track:  
+Rehearse A/B/C strategies and export a printable report.
 
-## What it does
+## Contents
 
-Import ? Metrics ? Strategy Compare ? Evidence Cards ? Report Export
+- [Core Flow](#core-flow)
+- [Use Cases](#use-cases)
+- [Feature Overview](#feature-overview)
+- [Quick Start (Windows)](#quick-start-windows)
+- [3-Minute Demo](#3-minute-demo)
+- [API List and Samples](#api-list-and-samples)
+- [Project Structure](#project-structure)
+- [FAQ](#faq)
+
+## Core Flow
+
+Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
+
+## Use Cases
+
+- E-commerce campaign review and comparison
+- Competition demo with minimal setup
+- Teaching demo for data-driven strategy evaluation
+
+## Feature Overview
+
+- Data upload (CSV) with dataset_id
+- KPI calculations (CTR/CVR/CPA/ROI)
+- Strategy compare with interval estimates and risk factors
+- Evidence cards to explain drivers
+- HTML report export (browser-friendly, printable)
 
 ## Quick Start (Windows)
 
@@ -103,8 +129,9 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/report/export" `
 
 Open the returned `download_url` in a browser.
 
-## API List (Adsim)
+## API List and Samples
 
+API:
 - `GET /api/v1/adsim/health`
 - `POST /api/v1/adsim/data/upload`
 - `POST /api/v1/adsim/metrics/compute`
@@ -118,7 +145,45 @@ Samples:
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
 
+## Project Structure
+
+```
+AdSim/
+├─ backend/                 # Flask backend
+├─ frontend/                # Vite + Vue frontend
+├─ samples/                 # Minimal datasets and requests
+├─ reports/sample/          # Report placeholder
+├─ docs/                    # Competition docs
+├─ static/                  # Static images
+├─ cache/                   # Runtime cache (ignored)
+├─ data_store/              # Dataset outputs (ignored)
+└─ README-EN.md
+```
+
+## FAQ
+
+### 1) Port in use
+
+- Frontend 3000 is busy -> Vite switches to 3001/3002
+- Backend 5001 is busy -> close the process or set `FLASK_PORT`
+
+### 2) .env config
+
+Backend uses `.env` for external services. Template: `F:\Projects\AdSim\.env.example`.  
+For Adsim demo flow only, you can keep defaults without external LLM calls.
+
+### 3) Install issues
+
+- Ensure Node `>=18`, Python `>=3.11`
+- Use `npm run setup:all`
+- If backend fails:
+
+```powershell
+cd "f:/Projects/AdSim/backend"
+uv sync
+```
+
 ## Credits
 
-This project is a competition-focused adaptation based on:
+Competition-focused adaptation based on:
 https://github.com/666ghj/MiroFish
