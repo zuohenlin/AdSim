@@ -123,6 +123,7 @@
               </div>
             </div>
           </div>
+
         </div>
 
         <!-- 右栏：交互控制台 -->
@@ -398,6 +399,7 @@ const saveLlmConfig = async () => {
     configSaving.value = false
   }
 }
+
 // 滚动到底部
 const scrollToBottom = () => {
   window.scrollTo({

@@ -65,6 +65,7 @@ curl.exe "http://localhost:5001/health"
 
 - **Adsim 数据链路**：面向投放数据、策略对比与报告导出。
 - **原始仿真入口**：面向文本/文件驱动的群体智能仿真（继承自 MiroFish）。
+- **舆情分析模块**：面向新闻/文本的热点检索与热度估计。
 
 ### 1) 上传数据（生成 dataset_id）
 
@@ -147,6 +148,7 @@ http://localhost:5001/api/v1/adsim/report/download/<report_id>
 - `samples/orders_100.csv`
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
+
 
 ## 常见问题
 

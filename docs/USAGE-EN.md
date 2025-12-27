@@ -65,6 +65,7 @@ Expected:
 
 - **Adsim data pipeline**: ad data, strategy comparison, report export.
 - **Original simulation entry**: text/file-driven multi-agent simulation (inherited from MiroFish).
+- **Opinion analysis module**: news/text search and hotness estimate.
 
 ### 1) Upload data (get dataset_id)
 
@@ -146,6 +147,7 @@ http://localhost:5001/api/v1/adsim/report/download/<report_id>
 - `samples/orders_100.csv`
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
+
 
 ## FAQ
 
