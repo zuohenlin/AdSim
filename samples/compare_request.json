@@ -1,0 +1,10 @@
+{
+  "mode": "baseline",
+  "dataset_id": "your_dataset_id",
+  "window": {
+    "start": "2025-01-01",
+    "end": "2025-01-31"
+  },
+  "strategies": ["A", "B", "C"],
+  "demo_mode": true
+}

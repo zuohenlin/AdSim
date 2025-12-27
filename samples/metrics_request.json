@@ -1,0 +1,13 @@
+{
+  "dataset_id": "your_dataset_id",
+  "time_range": {
+    "start": "2025-01-01",
+    "end": "2025-01-31"
+  },
+  "group_by": [
+    "date",
+    "channel"
+  ],
+  "cvr_numerator": "orders",
+  "margin_rate": 0.3
+}

@@ -1,0 +1,3 @@
+order_id,user_id,amount,order_date
+ord_001,user_001,99.9,2025-01-03
+ord_002,user_002,149.5,2025-01-04
