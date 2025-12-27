@@ -8,8 +8,12 @@ compare A/B/C strategies and export a printable report.
 ## Contents
 
 - [Core Flow](#core-flow)
+- [Two Modes](#two-modes)
+- [Mode Pros and Cons](#mode-pros-and-cons)
 - [Business Value](#business-value)
-- [Innovation](#innovation)
+- [Key Innovations](#key-innovations)
+- [Key Creative Ideas](#key-creative-ideas)
+- [Key Entrepreneurship Points](#key-entrepreneurship-points)
 - [Architecture](#architecture)
 - [Flow](#flow)
 - [UI Screenshots](#ui-screenshots)
@@ -33,17 +37,36 @@ Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
 - **Adsim data pipeline**: ad data, strategy comparison, report export.
 - **Original simulation entry**: text/file-driven multi-agent simulation (inherited from MiroFish).
 
+## Mode Pros and Cons
+
+| Mode | Pros | Cons | Best For |
+| --- | --- | --- | --- |
+| Adsim data pipeline | No LLM dependency, stable demos, controllable data | Depends on data quality | Competition demo, strategy review |
+| Original simulation entry | Handles unstructured text, strong explainability | Requires LLM API and external services | Public opinion simulation, multi-agent rehearsal |
+
 ## Business Value
 
 - **Fast rehearsal** with minimal input data
 - **Explainable decisions** via evidence cards
 - **Repeatable demo** for evaluation and teaching
 
-## Innovation
+## Key Innovations
 
 - **Explainable comparison** instead of raw metrics only
 - **Interval estimates** to reflect uncertainty
 - **Demo-friendly** flow within minutes
+
+## Key Creative Ideas
+
+- **Dual-mode presentation** for both data-driven and text-driven demos
+- **Evidence-card storytelling** for explainable outcomes
+- **Sample-first onboarding** with ready-to-run assets
+
+## Key Entrepreneurship Points
+
+- **Business-ready scope** aligned to ad/commerce data
+- **Low-cost deployment** for small teams
+- **Extensible monetization** via data connectors and report templates
 
 ## Architecture
 
