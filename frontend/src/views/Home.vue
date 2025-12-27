@@ -4,6 +4,9 @@
     <nav class="navbar">
       <div class="nav-brand">ADSIM</div>
       <div class="nav-links">
+        <a href="https://github.com/zuohenlin/AdSim" target="_blank" class="github-link">
+          项目地址 Adsim <span class="arrow">-&gt;</span>
+        </a>
         <a href="https://github.com/666ghj/MiroFish" target="_blank" class="github-link">
           原项目 MiroFish <span class="arrow">-&gt;</span>
         </a>
@@ -15,23 +18,24 @@
       <section class="hero-section">
         <div class="hero-left">
           <div class="tag-row">
-            <span class="orange-tag">简洁通用的群体智能引擎</span>
+            <span class="orange-tag">电商投放策略预演与对比引擎</span>
             <span class="version-text">/ V1.0-预览版</span>
           </div>
           
           <h1 class="main-title">
-            上传任意报告<br>
-            <span class="gradient-text">即刻推演未来</span>
+            导入投放数据<br>
+            <span class="gradient-text">即刻对比策略</span>
           </h1>
           
           <div class="hero-desc">
             <p>
-              即使只有一段文字，<span class="highlight-bold">Adsim</span> 也能基于其中的现实种子，全自动生成与之对应的至多<span class="highlight-orange">百万级Agent</span>构成的平行世界。通过上帝视角注入变量，在复杂的群体交互中寻找动态环境下的<span class="highlight-code">“局部最优解”</span>
+              <span class="highlight-bold">Adsim</span> 面向电商活动投放，提供从数据导入到指标计算、策略对比、证据卡与报告导出的完整闭环。用最小样例复现策略A/B/C的效果差异，让决策更可解释、更可复盘。
             </p>
             <p class="slogan-text">
-              让未来在 Agent 群中预演，让决策在百战后胜出<span class="blinking-cursor">_</span>
+              让策略在数据中预演，让结论在证据中落地<span class="blinking-cursor">_</span>
             </p>
           </div>
+
            
           <div class="decoration-square"></div>
         </div>
@@ -56,62 +60,65 @@
             <span class="status-dot">■</span> 系统状态
           </div>
           
-          <h2 class="section-title">准备就绪</h2>
+          <h2 class="section-title">投放预演就绪</h2>
           <p class="section-desc">
-            预测引擎待命中，可上传多份非结构化数据以初始化模拟序列
+            支持样例或真实投放数据导入，快速完成指标与策略对比的演示闭环
           </p>
           
           <!-- 数据指标卡片 -->
           <div class="metrics-row">
             <div class="metric-card">
-              <div class="metric-value">低成本</div>
-              <div class="metric-label">常规模拟平均5$/次</div>
+              <div class="metric-value">快启动</div>
+              <div class="metric-label">3分钟闭环演示</div>
             </div>
             <div class="metric-card">
-              <div class="metric-value">高可用</div>
-              <div class="metric-label">最多百万级Agent模拟</div>
+              <div class="metric-value">可解释</div>
+              <div class="metric-label">证据卡+区间估计</div>
             </div>
           </div>
 
           <!-- 项目模拟步骤介绍 (新增区域) -->
           <div class="steps-container">
             <div class="steps-header">
-               <span class="diamond-icon">◇</span> 工作流序列
+               <span class="diamond-icon">◇</span> 策略预演流程
             </div>
             <div class="workflow-list">
               <div class="workflow-item">
                 <span class="step-num">01</span>
                 <div class="step-info">
-                  <div class="step-title">图谱构建</div>
-                  <div class="step-desc">现实种子提取 & 个体与群体记忆注入 & GraphRAG构建</div>
+                  <div class="step-title">
+                    数据导入
+                    <a href="/adsim/import" class="step-link">进入导入</a>
+                  </div>
+                  <div class="step-desc">CSV上传 & 字段映射 & 数据落盘</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">02</span>
                 <div class="step-info">
-                  <div class="step-title">环境搭建</div>
-                  <div class="step-desc">实体关系抽取 & 人设生成 & 环境配置Agent注入仿真参数</div>
+                  <div class="step-title">指标计算</div>
+                  <div class="step-desc">CTR/CVR/CPA/ROI等关键口径</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">03</span>
                 <div class="step-info">
-                  <div class="step-title">开始模拟</div>
-                  <div class="step-desc">双平台并行模拟 & 自动解析预测需求 & 动态更新时序记忆</div>
+                  <div class="step-title">策略对比</div>
+                  <div class="step-desc">A/B/C 方案与区间估计输出</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">04</span>
                 <div class="step-info">
-                  <div class="step-title">报告生成</div>
-                  <div class="step-desc">ReportAgent拥有丰富的工具集与模拟后环境进行深度交互</div>
+                  <div class="step-title">证据卡与驱动</div>
+                  <div class="step-desc">风险点、驱动因素与可解释结论</div>
                 </div>
               </div>
               <div class="workflow-item">
                 <span class="step-num">05</span>
                 <div class="step-info">
-                  <div class="step-title">深度互动</div>
-                  <div class="step-desc">与模拟世界中的任意一位进行对话 & 与ReportAgent进行对话</div>
+                  <div class="step-title">报告导出</div>
+                  <div class="step-desc">HTML可打印报告一键生成</div>
                 </div>
               </div>
             </div>
@@ -127,7 +134,85 @@
                 <span class="console-label">01 / 现实种子</span>
                 <span class="console-meta">支持格式: PDF, MD, TXT</span>
               </div>
-              
+              <div class="llm-config">
+                <div class="llm-title">LLM 配置（原始仿真入口）</div>
+                <div class="llm-row">
+                  <label class="llm-label">API Key</label>
+                  <input
+                    v-model="llmConfig.apiKey"
+                    type="password"
+                    class="llm-input"
+                    placeholder="sk-..."
+                  />
+                </div>
+                <div class="llm-row">
+                  <label class="llm-label">API 地址</label>
+                  <input
+                    v-model="llmConfig.baseUrl"
+                    type="text"
+                    class="llm-input"
+                    placeholder="https://api.openai.com/v1"
+                  />
+                </div>
+                <div class="llm-row">
+                  <label class="llm-label">模型名称</label>
+                  <input
+                    v-model="llmConfig.modelName"
+                    type="text"
+                    class="llm-input"
+                    placeholder="gpt-4o-mini / qwen-plus"
+                  />
+                </div>
+                <div class="llm-row">
+                  <label class="llm-label">ZEP API</label>
+                  <input
+                    v-model="llmConfig.zepApiKey"
+                    type="password"
+                    class="llm-input"
+                    placeholder="zep-..."
+                  />
+                </div>
+                <div class="llm-row">
+                  <label class="llm-label">加速 Key</label>
+                  <input
+                    v-model="llmConfig.boostApiKey"
+                    type="password"
+                    class="llm-input"
+                    placeholder="可选"
+                  />
+                </div>
+                <div class="llm-row">
+                  <label class="llm-label">加速地址</label>
+                  <input
+                    v-model="llmConfig.boostBaseUrl"
+                    type="text"
+                    class="llm-input"
+                    placeholder="可选"
+                  />
+                </div>
+                <div class="llm-row">
+                  <label class="llm-label">加速模型</label>
+                  <input
+                    v-model="llmConfig.boostModelName"
+                    type="text"
+                    class="llm-input"
+                    placeholder="可选"
+                  />
+                </div>
+                <div class="llm-actions">
+                  <button
+                    class="llm-save"
+                    :disabled="configSaving"
+                    @click="saveLlmConfig"
+                  >
+                    <span v-if="!configSaving">保存到 .env</span>
+                    <span v-else>保存中...</span>
+                  </button>
+                  <span v-if="configStatus" class="llm-status">{{ configStatus }}</span>
+                </div>
+                <div class="llm-hint">仅用于原始仿真入口，本地调试模式可用</div>
+              </div>
+
               <div 
                 class="upload-zone"
                 :class="{ 'drag-over': isDragOver, 'has-files': files.length > 0 }"
@@ -176,7 +261,7 @@
                 <textarea
                   v-model="formData.simulationRequirement"
                   class="code-input"
-                  placeholder="// 用自然语言输入模拟或预测需求（例.武大若发布撤销肖某处分的公告，会引发什么舆情走向）"
+                  placeholder="// 用自然语言输入模拟或预测需求（例.春节大促预算不变，A/B/C三种投放策略哪一种ROI更高）"
                   rows="6"
                   :disabled="loading"
                 ></textarea>
@@ -206,6 +291,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { updateLlmConfig } from '../api/system'
 
 const router = useRouter()
 
@@ -221,6 +307,17 @@ const files = ref([])
 const loading = ref(false)
 const error = ref('')
 const isDragOver = ref(false)
+const configSaving = ref(false)
+const configStatus = ref('')
+const llmConfig = ref({
+  apiKey: '',
+  baseUrl: '',
+  modelName: '',
+  zepApiKey: '',
+  boostApiKey: '',
+  boostBaseUrl: '',
+  boostModelName: ''
+})
 
 // 文件输入引用
 const fileInput = ref(null)
@@ -276,6 +373,31 @@ const removeFile = (index) => {
   files.value.splice(index, 1)
 }
 
+const saveLlmConfig = async () => {
+  if (!llmConfig.value.apiKey.trim()) {
+    configStatus.value = '请填写 API Key'
+    return
+  }
+  configSaving.value = true
+  configStatus.value = ''
+  try {
+    await updateLlmConfig({
+      api_key: llmConfig.value.apiKey.trim(),
+      base_url: llmConfig.value.baseUrl.trim(),
+      model_name: llmConfig.value.modelName.trim(),
+      zep_api_key: llmConfig.value.zepApiKey.trim(),
+      boost_api_key: llmConfig.value.boostApiKey.trim(),
+      boost_base_url: llmConfig.value.boostBaseUrl.trim(),
+      boost_model_name: llmConfig.value.boostModelName.trim()
+    })
+    llmConfig.value.apiKey = ''
+    configStatus.value = '已写入 .env'
+  } catch (err) {
+    configStatus.value = `保存失败: ${err.message || '未知错误'}`
+  } finally {
+    configSaving.value = false
+  }
+}
 // 滚动到底部
 const scrollToBottom = () => {
   window.scrollTo({
@@ -347,6 +469,7 @@ const startSimulation = () => {
 .nav-links {
   display: flex;
   align-items: center;
+  gap: 16px;
 }
 
 .github-link {
@@ -367,6 +490,50 @@ const startSimulation = () => {
 
 .arrow {
   font-family: sans-serif;
+}
+
+.nav-button {
+  background: var(--orange);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 10px 18px;
+  border: 1px solid var(--orange);
+  border-radius: 6px;
+  letter-spacing: 0.8px;
+  box-shadow: 0 6px 14px rgba(255, 69, 0, 0.25);
+  transition: all 0.2s;
+}
+
+.step-link {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--black);
+  text-decoration: none;
+  border-bottom: 1px solid var(--black);
+  line-height: 1.2;
+}
+
+.step-link::after {
+  content: ' ->';
+  margin-left: 4px;
+}
+
+.step-link:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.nav-button:hover {
+  background: #ff5a1f;
+  border-color: #ff5a1f;
+  color: var(--white);
+  transform: translateY(-1px);
 }
 
 /* 主要内容区 */
@@ -724,6 +891,82 @@ const startSimulation = () => {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: #999;
+}
+
+.llm-config {
+  border: 1px solid #EEE;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: #FAFAFA;
+}
+
+.llm-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.llm-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.llm-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.llm-input {
+  border: 1px solid #DDD;
+  background: var(--white);
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.llm-input:focus {
+  border-color: var(--black);
+}
+
+.llm-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.llm-save {
+  background: var(--black);
+  color: var(--white);
+  border: 1px solid var(--black);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.llm-save:disabled {
+  background: #E5E5E5;
+  color: #999;
+  border-color: #E5E5E5;
+  cursor: not-allowed;
+}
+
+.llm-status {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.llm-hint {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 8px;
 }
 
 .file-list {

@@ -28,6 +28,11 @@ compare A/B/C strategies and export a printable report.
 
 Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
 
+## Two Modes
+
+- **Adsim data pipeline**: ad data, strategy comparison, report export.
+- **Original simulation entry**: text/file-driven multi-agent simulation (inherited from MiroFish).
+
 ## Business Value
 
 - **Fast rehearsal** with minimal input data
@@ -44,13 +49,9 @@ Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
 
 ![Architecture](./docs/architecture.png)
 
-> Placeholder image, replace with your actual diagram.
-
 ## Flow
 
 ![Flow](./docs/flow.png)
-
-> Placeholder image, replace with your actual flow chart.
 
 ## UI Screenshots
 
@@ -158,8 +159,13 @@ API:
 Samples:
 - `samples/ad_log.csv`
 - `samples/orders.csv`
+- `samples/ad_log_100.csv`
+- `samples/orders_100.csv`
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
+
+Usage guide:
+- `docs/USAGE-EN.md`
 
 ## Quick Start (Windows)
 

@@ -28,6 +28,11 @@
 
 导入 -> 指标计算 -> 策略对比 -> 证据卡 -> 报告导出
 
+## 两种模式
+
+- **Adsim 数据链路**：面向投放数据、策略对比与报告导出。
+- **原始仿真入口**：面向文本/文件驱动的群体智能仿真（继承自 MiroFish）。
+
 ## 业务价值
 
 - **快速预演**：用最少数据构建可演示的策略对比闭环。
@@ -44,13 +49,11 @@
 
 ![Architecture](./docs/architecture.png)
 
-> 图示为占位，可替换为实际架构图。
 
 ## 流程图
 
 ![Flow](./docs/flow.png)
 
-> 图示为占位，可替换为实际流程图。
 
 ## 页面截图
 
@@ -162,8 +165,13 @@ API：
 Samples：
 - `samples/ad_log.csv`
 - `samples/orders.csv`
+- `samples/ad_log_100.csv`
+- `samples/orders_100.csv`
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
+
+使用文档：
+- `docs/USAGE.md`
 
 ## Windows 快速开始
 
