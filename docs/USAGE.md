@@ -1,45 +1,58 @@
-﻿# Adsim 使用文档
+# Adsim 使用文档
 
 > 适用于“三创赛-商务大数据分析实战赛”演示与答辩。
 
 ## 目录
 
-- [快速开始](#快速开始)
+- [快速开始（交互脚本）](#快速开始交互脚本)
 - [核心流程（Adsim 数据链路）](#核心流程adsim-数据链路)
+- [Adsim Insight → Adsim 联动流程](#adsim-insight--adsim-联动流程)
 - [原始仿真入口（现实种子/模拟提示词）](#原始仿真入口现实种子模拟提示词)
 - [报告导出与查看](#报告导出与查看)
 - [样例数据与请求](#样例数据与请求)
 - [常见问题](#常见问题)
 
-## 快速开始
+## 快速开始（交互脚本）
 
 ### 环境要求
 
-- Node.js 18+
-- Python 3.11+
-- uv（Python 包管理器）
+- Node.js 18+  
+- Python 3.11+  
+- uv（Python 包管理器）  
+- Docker（可选，用于 Adsim Insight）
 
 ### 安装依赖
 
 ```powershell
 cd .
-
-# 一键安装（根目录 + 前端 + 后端）
 npm run setup:all
 ```
 
-### 启动服务
+建议：先复制并检查 `.env`，不使用外部 LLM 可保持默认值：  
 
 ```powershell
-cd .
-
-# 同时启动前后端
-npm run dev
+Copy-Item ".env.example" ".env"
 ```
 
-默认端口：
-- 前端：`http://localhost:3000`
-- 后端：`http://localhost:5001`
+可选：如需 Adsim Insight，请准备 `third_party/BettaFish/.env`（基于 `third_party/BettaFish/.env.example`，并填写相关 API Key）。
+
+### 启动服务（推荐）
+
+```powershell
+./tools/run_all.ps1
+```
+
+脚本可选择：
+- 同时启动 Adsim + Adsim Insight  
+- 仅启动 Adsim  
+- 仅启动 Adsim Insight  
+- 状态检查 / 停止服务  
+
+访问地址：  
+- Adsim 前端：`http://localhost:3000`  
+- Adsim 后端：`http://localhost:5001`  
+- Adsim Insight（Flask）：`http://localhost:5000`  
+- Adsim Insight（Streamlit）：`http://localhost:8501`  
 
 健康检查：
 
@@ -60,12 +73,6 @@ curl.exe "http://localhost:5001/health"
 - 数据导入：`http://localhost:3000/adsim/import`
 - 策略配置：`http://localhost:3000/adsim/strategy`
 - 对比结果：`http://localhost:3000/adsim/compare`
-
-## 两种模式说明
-
-- **Adsim 数据链路**：面向投放数据、策略对比与报告导出。
-- **原始仿真入口**：面向文本/文件驱动的群体智能仿真（继承自 MiroFish）。
-- **舆情分析模块**：面向新闻/文本的热点检索与热度估计。
 
 ### 1) 上传数据（生成 dataset_id）
 
@@ -93,13 +100,25 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/strategy/compare" `
   -d "@samples/compare_request.json"
 ```
 
+## Adsim Insight → Adsim 联动流程
+
+用途：先用 Adsim Insight 生成研究报告，再作为 Adsim 的“现实种子”输入，结合提示词进行预测/仿真。
+
+步骤：
+1) 启动 Adsim Insight  
+2) 生成研究报告（HTML/MD/PDF）  
+3) 打开 Adsim 首页，上传报告文件到“现实种子”  
+4) 输入“模拟提示词”，触发预测/仿真流程  
+
+说明：该联动依赖外部 LLM 与联网能力，适合展示“舆情→策略预演”的完整链路。
+
 ## 原始仿真入口（现实种子/模拟提示词）
 
-首页的“现实种子”和“模拟提示词”仍然用于原始仿真流程（继承自 MiroFish）。
+首页的“现实种子”和“模拟提示词”仍然用于原始仿真流程（继承自 MiroFish）。  
 它与 Adsim 的电商投放链路是两条独立入口：
 
-- **Adsim 数据链路**：面向投放数据、策略对比与报告导出。
-- **原始仿真入口**：面向文本/文件驱动的群体智能仿真。
+- **Adsim 数据链路**：面向投放数据、策略对比与报告导出。  
+- **原始仿真入口**：面向文本/文件驱动的群体智能仿真。  
 
 若你只做 Adsim 演示，可忽略该入口；需要展示原始仿真时：
 
@@ -149,21 +168,14 @@ http://localhost:5001/api/v1/adsim/report/download/<report_id>
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
 
-
 ## 常见问题
 
 ### 1) 端口占用
 
-- 前端 3000 被占用时，Vite 会自动切换到 3001/3002。
-- 后端 5001 被占用时，请先关闭占用进程或修改 `FLASK_PORT`。
+- 前端 3000 被占用时，Vite 会自动切换到 3001/3002。  
+- 后端 5001 被占用时，请关闭占用进程或修改环境变量 `FLASK_PORT`。  
 
-### 2) 后端启动失败
+### 2) .env 配置
 
-```powershell
-cd backend
-uv sync
-```
-
-### 3) Windows 的 curl 提示安全警告
-
-使用 `curl.exe`，避免 PowerShell `Invoke-WebRequest` 的脚本提示。
+后端依赖 `.env` 中的外部服务配置，模板见：`.env.example`。  
+若仅演示 Adsim 数据链路，可先保持默认并不调用外部 LLM 相关功能。

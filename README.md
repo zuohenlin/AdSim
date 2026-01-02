@@ -13,8 +13,9 @@
 - [项目定位与核心闭环](#项目定位与核心闭环)
 - [核心能力与差异化](#核心能力与差异化)
 - [系统模式说明](#系统模式说明)
+- [启动与访问（交互脚本）](#启动与访问交互脚本)
 - [3分钟演示流程](#3分钟演示流程)
-- [快速开始（Windows PowerShell）](#快速开始windows-powershell)
+- [Adsim Insight → Adsim 联动流程](#adsim-insight--adsim-联动流程)
 - [前端页面与路由入口](#前端页面与路由入口)
 - [主要API](#主要api)
 - [数据规范与指标口径](#数据规范与指标口径)
@@ -43,7 +44,76 @@
 
 - **Adsim 数据链路**：投放/订单数据驱动的策略对比与报告导出（可离线演示）。  
 - **原始仿真入口**：文本/文件驱动的群体智能仿真（需要 LLM 配置）。  
-- **Adsim Insight（基于 BettaFish）**：可选的舆情/文本分析能力，非比赛主演示必需。  
+- **Adsim Insight（基于 BettaFish）**：可选的舆情/文本分析模块，非比赛主演示必需。  
+
+## 启动与访问（交互脚本）
+
+> 推荐使用交互脚本，一次性完成“启动选择 + 入口提示 + 端口检查”。
+
+### 环境要求
+
+- Node.js 18+  
+- Python 3.11+  
+- uv（Python 包管理器）  
+- Docker（可选，用于 Adsim Insight）
+
+### 安装依赖
+
+```powershell
+cd .
+npm run setup:all
+```
+
+建议：先复制并检查 `.env`，不使用外部 LLM 可保持默认值：  
+
+```powershell
+Copy-Item ".env.example" ".env"
+```
+
+可选：如需 Adsim Insight，请准备 `third_party/BettaFish/.env`（基于 `third_party/BettaFish/.env.example`，并填写相关 API Key）。
+
+### 启动服务（推荐）
+
+```powershell
+./tools/run_all.ps1
+```
+
+脚本可选择：
+- 同时启动 Adsim + Adsim Insight  
+- 仅启动 Adsim  
+- 仅启动 Adsim Insight  
+- 状态检查 / 停止服务  
+
+### 访问地址
+
+- Adsim 前端：`http://localhost:3000`  
+- Adsim 后端：`http://localhost:5001`  
+- Adsim Insight（Flask）：`http://localhost:5000`  
+- Adsim Insight（Streamlit）：`http://localhost:8501`  
+
+### 健康检查
+
+```powershell
+curl.exe "http://localhost:5001/health"
+```
+
+期望输出：
+
+```json
+{"status":"ok","service":"Adsim Backend"}
+```
+
+### Adsim Insight（仅启动时的备用方式）
+
+```powershell
+docker compose -f docker-compose.bettafish.yml up --build
+```
+
+停止：
+
+```powershell
+docker compose -f docker-compose.bettafish.yml down
+```
 
 ## 3分钟演示流程
 
@@ -51,11 +121,12 @@
 
 ### 方式A：前端页面（推荐演示）
 
-1) 打开导入页：`/adsim/import`  
-2) 上传 `samples/ad_log.csv` 与 `samples/orders.csv`  
-3) 跳转策略配置页：`/adsim/strategy`  
-4) 跳转对比页：`/adsim/compare`，查看 summary/曲线/证据卡  
-5) 点击“导出报告”按钮，打开生成的报告  
+1) 先用交互脚本启动服务：`./tools/run_all.ps1`  
+2) 打开导入页：`/adsim/import`  
+3) 上传 `samples/ad_log.csv` 与 `samples/orders.csv`  
+4) 跳转策略配置页：`/adsim/strategy`  
+5) 跳转对比页：`/adsim/compare`，查看 summary/曲线/证据卡  
+6) 点击“导出报告”按钮，打开生成的报告  
 
 ### 方式B：API（PowerShell）
 
@@ -99,44 +170,17 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/report/export" `
 接口返回 `download_url` 后，在浏览器打开：  
 `http://localhost:5001/api/v1/adsim/report/download/<report_id>`
 
-## 快速开始（Windows PowerShell）
+## Adsim Insight → Adsim 联动流程
 
-### 环境要求
+目标：用 Adsim Insight 生成研究报告，再作为 Adsim 的“现实种子”输入，结合提示词进行预测/仿真。
 
-- Node.js 18+  
-- Python 3.11+  
-- uv（Python 包管理器）  
-- Docker（可选，用于 Adsim Insight）
+流程：
+1) 启动 Adsim Insight（交互脚本或 Docker Compose）  
+2) 在 Adsim Insight 生成研究报告（HTML/MD/PDF）  
+3) 打开 Adsim 首页，在“现实种子”上传该报告文件  
+4) 输入“模拟提示词”，触发预测/仿真流程  
 
-### 安装依赖
-
-```powershell
-cd .
-npm run setup:all
-```
-
-### 启动服务
-
-```powershell
-cd .
-npm run dev
-```
-
-默认端口：  
-- 前端：`http://localhost:3000`  
-- 后端：`http://localhost:5001`
-
-健康检查：
-
-```powershell
-curl.exe "http://localhost:5001/health"
-```
-
-期望输出：
-
-```json
-{"status":"ok","service":"Adsim Backend"}
-```
+说明：此联动依赖外部 LLM 与联网能力，适合展示“舆情→策略预演”的完整闭环。
 
 ## 前端页面与路由入口
 
@@ -226,10 +270,10 @@ AdSim/
 
 | 方案类型 | 代表形态 | 功能覆盖 | 可解释性 | 预演/区间不确定性 | 部署成本 | 比赛适配度 | Adsim差异化 |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 传统 BI 看板 | Tableau / PowerBI / 自建报表 | 统计展示强 | 中 | 无 | 中 | 中 | Adsim 提供策略预演与证据卡 |
-| 广告平台原生后台 | 巨量/腾讯/阿里等投放后台 | 投放数据强 | 低-中 | 无 | 高（依赖平台） | 中 | Adsim 可离线演示、可解释 |
-| 通用营销归因工具 | 归因/分析产品 | 归因强 | 中 | 无 | 中-高 | 中 | Adsim 强在“策略对比与预演” |
-| 预测模型 Demo | 学术/竞赛模型 | 预测强 | 低 | 无 | 低 | 低-中 | Adsim 提供闭环、报告与证据卡 |
+| 传统 BI 看板 | Tableau/PowerBI/自建报表 | 统计展示强 | 中 | 无 | 中 | 中 | Adsim 提供策略预演与证据卡 |
+| 广告平台原生后台 | 投放平台后台能力抽象 | 投放数据强 | 低-中 | 无 | 高 | 中 | Adsim 可离线演示、可解释 |
+| 通用营销归因工具 | 归因/分析产品 | 归因强 | 中 | 无 | 中-高 | 中 | Adsim 强在策略预演 |
+| 预测模型 Demo | 学术/竞赛模型 | 预测强 | 低 | 无 | 低 | 低-中 | Adsim 提供闭环与报告 |
 
 **核心差异**：策略预演、区间不确定性、证据卡解释、可一键生成报告、离线演示稳定。
 
@@ -242,7 +286,7 @@ AdSim/
 
 ### 创意点
 - 以“3分钟闭环演示”组织流程，降低评审理解成本。  
-- 统一 UI 与 API 双入口，演示与开发兼顾。  
+- 交互脚本统一启动体验，降低上手门槛。  
 - 可选引入 Adsim Insight，形成“数据+舆情”扩展空间。  
 
 ### 创业点
@@ -296,6 +340,6 @@ uv sync
 
 - `git status` 是否干净  
 - `.gitignore` 是否忽略运行产物  
-- `npm run dev` 前后端是否正常启动  
+- `./tools/run_all.ps1` 是否可交互启动  
 - `curl.exe "http://localhost:5001/health"` 是否返回 `ok`  
 - `strategy/compare` 与 `report/export` 是否可用  

@@ -1,45 +1,58 @@
-﻿# Adsim Usage Guide
+# Adsim Usage Guide
 
 > For competition demo and TA review.
 
 ## Contents
 
-- [Quick Start](#quick-start)
+- [Quick Start (Interactive Script)](#quick-start-interactive-script)
 - [Core Flow (Adsim Data Pipeline)](#core-flow-adsim-data-pipeline)
+- [Adsim Insight → Adsim Pipeline](#adsim-insight--adsim-pipeline)
 - [Original Simulation Entry (Seed Text/Prompt)](#original-simulation-entry-seed-textprompt)
 - [Report Export and View](#report-export-and-view)
 - [Samples and Requests](#samples-and-requests)
 - [FAQ](#faq)
 
-## Quick Start
+## Quick Start (Interactive Script)
 
 ### Requirements
 
-- Node.js 18+
-- Python 3.11+
-- uv (Python package manager)
+- Node.js 18+  
+- Python 3.11+  
+- uv (Python package manager)  
+- Docker (optional, for Adsim Insight)
 
 ### Install
 
 ```powershell
 cd .
-
-# All-in-one install (root + frontend + backend)
 npm run setup:all
 ```
 
-### Run
+Recommended: copy and verify `.env` (you can keep defaults if no external LLM is used):
 
 ```powershell
-cd .
-
-# Start frontend + backend
-npm run dev
+Copy-Item ".env.example" ".env"
 ```
 
-Default ports:
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:5001`
+Optional: prepare `third_party/BettaFish/.env` based on `third_party/BettaFish/.env.example` and fill API keys.
+
+### Start (recommended)
+
+```powershell
+./tools/run_all.ps1
+```
+
+The script can:
+- Start Adsim + Adsim Insight  
+- Start Adsim only  
+- Start Adsim Insight only  
+- Status check / stop services  
+
+Endpoints:  
+- Adsim Frontend: `http://localhost:3000`  
+- Adsim Backend: `http://localhost:5001`  
+- Adsim Insight (Flask): `http://localhost:5000`  
+- Adsim Insight (Streamlit): `http://localhost:8501`  
 
 Health check:
 
@@ -60,12 +73,6 @@ Expected:
 - Import: `http://localhost:3000/adsim/import`
 - Strategy: `http://localhost:3000/adsim/strategy`
 - Compare: `http://localhost:3000/adsim/compare`
-
-## Two Modes
-
-- **Adsim data pipeline**: ad data, strategy comparison, report export.
-- **Original simulation entry**: text/file-driven multi-agent simulation (inherited from MiroFish).
-- **Opinion analysis module**: news/text search and hotness estimate.
 
 ### 1) Upload data (get dataset_id)
 
@@ -93,6 +100,18 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/strategy/compare" `
   -d "@samples/compare_request.json"
 ```
 
+## Adsim Insight → Adsim Pipeline
+
+Goal: generate a research report in Adsim Insight, then use it as the “seed file” in Adsim for prediction/simulation.
+
+Steps:
+1) Start Adsim Insight  
+2) Generate a research report (HTML/MD/PDF)  
+3) Open Adsim home page and upload the report as “seed file”  
+4) Enter the simulation prompt to run prediction/simulation  
+
+Note: This pipeline depends on external LLM and online access and is suitable for demonstrating the full loop.
+
 ## Original Simulation Entry (Seed Text/Prompt)
 
 The home page fields “seed files” and “simulation prompt” are still used by the original simulation flow (inherited from MiroFish). This is separate from the Adsim data pipeline:
@@ -118,13 +137,11 @@ If you only demo Adsim, you can ignore this entry. To use it:
 $tmp = Join-Path $env:TEMP "adsim_compare.json"
 $export = Join-Path $env:TEMP "adsim_export.json"
 
-# Save compare result
 $compare = curl.exe -X POST "http://localhost:5001/api/v1/adsim/strategy/compare" `
   -H "Content-Type: application/json" `
   -d "@samples/compare_request.json"
 $compare | Set-Content -Encoding utf8 -Path $tmp
 
-# Build export payload
 $payload = @{ compare_result = (Get-Content -Raw $tmp | ConvertFrom-Json); selected_strategy = "A" } | ConvertTo-Json -Depth 8
 $payload | Set-Content -Encoding utf8 -Path $export
 
@@ -133,7 +150,7 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/report/export" `
   -d "@$export"
 ```
 
-Open `download_url` in browser:
+Open the returned `download_url` in a browser:
 
 ```
 http://localhost:5001/api/v1/adsim/report/download/<report_id>
@@ -148,21 +165,14 @@ http://localhost:5001/api/v1/adsim/report/download/<report_id>
 - `samples/metrics_request.json`
 - `samples/compare_request.json`
 
-
 ## FAQ
 
 ### 1) Port in use
 
-- Frontend 3000 busy -> Vite switches to 3001/3002
-- Backend 5001 busy -> close the process or set `FLASK_PORT`
+- Frontend 3000 busy -> Vite switches to 3001/3002  
+- Backend 5001 busy -> close the process or set `FLASK_PORT`  
 
-### 2) Backend fails to start
+### 2) .env config
 
-```powershell
-cd backend
-uv sync
-```
-
-### 3) PowerShell curl security warning
-
-Use `curl.exe` to avoid `Invoke-WebRequest` script warning.
+Backend uses `.env` for external services. Template: `.env.example`.  
+For Adsim data pipeline demo, you can keep defaults without external LLM calls.

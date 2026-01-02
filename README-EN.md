@@ -14,8 +14,9 @@ Reproduce A/B/C strategy differences with minimal samples, and export explainabl
 - [Positioning & Core Loop](#positioning--core-loop)
 - [Capabilities & Differentiation](#capabilities--differentiation)
 - [System Modes](#system-modes)
+- [Launch & Endpoints (Interactive Script)](#launch--endpoints-interactive-script)
 - [3-Minute Demo](#3-minute-demo)
-- [Quick Start (Windows PowerShell)](#quick-start-windows-powershell)
+- [Adsim Insight → Adsim Pipeline](#adsim-insight--adsim-pipeline)
 - [Frontend Routes](#frontend-routes)
 - [Key APIs](#key-apis)
 - [Data Specs & Metrics](#data-specs--metrics)
@@ -46,17 +47,87 @@ Reproduce A/B/C strategy differences with minimal samples, and export explainabl
 - **Original simulation entry**: text/file-driven multi-agent simulation (requires LLM).  
 - **Adsim Insight (based on BettaFish)**: optional public-opinion/text analysis module, not required for the competition main demo.  
 
+## Launch & Endpoints (Interactive Script)
+
+> Use the interactive script for guided start, status check, and endpoints display.
+
+### Requirements
+
+- Node.js 18+  
+- Python 3.11+  
+- uv (Python package manager)  
+- Docker (optional, for Adsim Insight)
+
+### Install
+
+```powershell
+cd .
+npm run setup:all
+```
+
+Recommended: copy and verify `.env` (you can keep defaults if no external LLM is used):
+
+```powershell
+Copy-Item ".env.example" ".env"
+```
+
+Optional: prepare `third_party/BettaFish/.env` based on `third_party/BettaFish/.env.example` and fill API keys.
+
+### Start (recommended)
+
+```powershell
+./tools/run_all.ps1
+```
+
+The script can:
+- Start Adsim + Adsim Insight  
+- Start Adsim only  
+- Start Adsim Insight only  
+- Status check / stop services  
+
+### Endpoints
+
+- Adsim Frontend: `http://localhost:3000`  
+- Adsim Backend: `http://localhost:5001`  
+- Adsim Insight (Flask): `http://localhost:5000`  
+- Adsim Insight (Streamlit): `http://localhost:8501`  
+
+### Health check
+
+```powershell
+curl.exe "http://localhost:5001/health"
+```
+
+Expected:
+
+```json
+{"status":"ok","service":"Adsim Backend"}
+```
+
+### Adsim Insight only (fallback)
+
+```powershell
+docker compose -f docker-compose.bettafish.yml up --build
+```
+
+Stop:
+
+```powershell
+docker compose -f docker-compose.bettafish.yml down
+```
+
 ## 3-Minute Demo
 
 > Use `samples/` data and templates. This flow is fully offline-capable.
 
-### Option A: UI (recommended for demo)
+### Option A: UI (recommended)
 
-1) Import: `/adsim/import`  
-2) Upload `samples/ad_log.csv` and `samples/orders.csv`  
-3) Strategy config: `/adsim/strategy`  
-4) Compare view: `/adsim/compare`  
-5) Click “Export Report”  
+1) Start services: `./tools/run_all.ps1`  
+2) Import page: `/adsim/import`  
+3) Upload `samples/ad_log.csv` and `samples/orders.csv`  
+4) Strategy page: `/adsim/strategy`  
+5) Compare page: `/adsim/compare`  
+6) Click “Export Report”  
 
 ### Option B: API (PowerShell)
 
@@ -100,44 +171,17 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/report/export" `
 Open the returned `download_url`:  
 `http://localhost:5001/api/v1/adsim/report/download/<report_id>`
 
-## Quick Start (Windows PowerShell)
+## Adsim Insight → Adsim Pipeline
 
-### Requirements
+Goal: generate a research report in Adsim Insight, then use it as the “seed file” in Adsim for prediction/simulation.
 
-- Node.js 18+  
-- Python 3.11+  
-- uv (Python package manager)  
-- Docker (optional, for Adsim Insight)
+Flow:
+1) Start Adsim Insight  
+2) Generate a research report (HTML/MD/PDF)  
+3) Open Adsim home page and upload the report as the “seed file”  
+4) Enter the simulation prompt to run prediction/simulation  
 
-### Install
-
-```powershell
-cd .
-npm run setup:all
-```
-
-### Run
-
-```powershell
-cd .
-npm run dev
-```
-
-Default ports:  
-- Frontend: `http://localhost:3000`  
-- Backend: `http://localhost:5001`
-
-Health check:
-
-```powershell
-curl.exe "http://localhost:5001/health"
-```
-
-Expected:
-
-```json
-{"status":"ok","service":"Adsim Backend"}
-```
+Note: This pipeline depends on external LLM and online access and is suitable for demonstrating the full loop.
 
 ## Frontend Routes
 
@@ -243,7 +287,7 @@ Note: `data_store/`, `cache/`, and `reports/` are runtime outputs and should not
 
 ### Creativity
 - “3-minute demo loop” designed for judges.  
-- UI + API dual entry for flexibility.  
+- Interactive script for guided start and endpoints.  
 - Optional Adsim Insight for future expansion.  
 
 ### Entrepreneurship
@@ -297,6 +341,6 @@ uv sync
 
 - `git status` is clean  
 - `.gitignore` excludes runtime artifacts  
-- `npm run dev` starts both services  
+- `./tools/run_all.ps1` starts services and shows endpoints  
 - `curl.exe "http://localhost:5001/health"` returns `ok`  
 - `strategy/compare` and `report/export` respond correctly  

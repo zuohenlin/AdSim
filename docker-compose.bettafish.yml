@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   bettafish:
     image: ghcr.io/666ghj/bettafish:latest
