@@ -1,178 +1,66 @@
-﻿# Adsim
+# Adsim
+
+[![License](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](./LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](./package.json)
+
+E-commerce campaign strategy rehearsal and decision report system for the  
+“National College Entrepreneurship Competition - Business Big Data Analysis Track”.  
+Reproduce A/B/C strategy differences with minimal samples, and export explainable reports.
 
 ![Adsim Logo](./static/image/adsim_logo.png)
 
-E-commerce ad campaign rehearsal for the competition track.  
-Compare A/B/C strategies with samples and export a printable report.
+## Table of Contents
 
-## Core Flow
+- [Positioning & Core Loop](#positioning--core-loop)
+- [Capabilities & Differentiation](#capabilities--differentiation)
+- [System Modes](#system-modes)
+- [3-Minute Demo](#3-minute-demo)
+- [Quick Start (Windows PowerShell)](#quick-start-windows-powershell)
+- [Frontend Routes](#frontend-routes)
+- [Key APIs](#key-apis)
+- [Data Specs & Metrics](#data-specs--metrics)
+- [Architecture & Structure](#architecture--structure)
+- [Comparison vs. Alternatives](#comparison-vs-alternatives)
+- [Innovation / Creativity / Entrepreneurship](#innovation--creativity--entrepreneurship)
+- [Screenshots & Assets](#screenshots--assets)
+- [Compliance & Third-Party](#compliance--third-party)
+- [FAQ](#faq)
+- [Pre-Submit Checklist](#pre-submit-checklist)
 
-Import -> Metrics -> Strategy Compare -> Evidence Cards -> Report Export
+## Positioning & Core Loop
 
-## Two Modes
+**Positioning**: strategy rehearsal and decision reporting for e-commerce ad campaigns.  
+**Loop**: Import → Metrics → Strategy Compare → Evidence Cards → Report Export
 
-- **Adsim data pipeline**: ad/order data driven strategy comparison and report export.
-- **Original simulation entry**: text/file-driven multi-agent simulation (inherited from MiroFish).
+## Capabilities & Differentiation
 
-### Mode Pros and Cons
+- **Explainable comparison**: metrics + drivers + evidence cards.  
+- **Interval estimates**: show uncertainty, avoid single-point bias.  
+- **3-minute demo**: sample upload → compare → export.  
+- **Offline-ready**: Adsim data pipeline runs without external LLM.  
+- **Printable reports**: HTML report for presentation and scoring.  
 
-| Mode | Pros | Cons | Best For |
-| --- | --- | --- | --- |
-| Adsim data pipeline | No LLM dependency, stable demos, controllable data | Depends on data quality | Competition demo, strategy review |
-| Original simulation entry | Handles unstructured text, strong explainability | Requires LLM API and external services | Public opinion simulation, multi-agent rehearsal |
+## System Modes
 
-## Project Summary
-
-Adsim turns ad data into explainable strategy comparisons, with evidence cards and interval estimates for fast evaluation and defense demos.
-
-## Key Innovations
-
-- **Explainable comparison**: metrics + drivers + evidence cards
-- **Interval estimates** for uncertainty
-- **End-to-end demo** within minutes
-
-## Key Creative Ideas
-
-- **Dual-mode presentation** for data-driven and text-driven demos
-- **Evidence-card storytelling** for clear defense narrative
-- **Sample-first onboarding** with ready-to-run assets
-
-## Key Entrepreneurship Points
-
-- **Business-ready scope** aligned to ad/commerce data
-- **Low-cost deployment** for small teams
-- **Extensible monetization** via data connectors and report templates
-
-## Architecture
-
-![Architecture](./docs/architecture.png)
-
-## Flow
-
-![Flow](./docs/flow.png)
-
-## UI Screenshots
-
-![Import](./docs/ui-import.png)
-![Strategy](./docs/ui-strategy.png)
-![Compare](./docs/ui-compare.png)
-
-## Data Dictionary
-
-### ad_log
-
-| Field | Type | Description |
-| --- | --- | --- |
-| ad_id | string | Campaign or ad ID |
-| impressions | int | Impressions |
-| clicks | int | Clicks |
-| date | datetime | Date |
-| spend | float | Spend (optional) |
-| gmv | float | GMV (optional) |
-| conversions | int | Conversions (optional) |
-
-### orders
-
-| Field | Type | Description |
-| --- | --- | --- |
-| order_id | string | Order ID |
-| user_id | string | User ID |
-| amount | float | Amount (or gmv) |
-| order_date | datetime | Order date |
-| gross_profit | float | Gross profit (optional) |
-| refund_orders | int | Refund order count (optional) |
-| is_refund | bool | Refund flag (optional) |
-
-## Metric Definitions
-
-- **CTR** = clicks / impressions  
-- **CVR** = orders / clicks (or conversions / clicks)  
-- **CPA** = spend / orders  
-- **ROI_GP** = gross_profit / spend (fallback to gmv * margin_rate)  
-- **Refund Rate** = refund_orders / total_orders
-
-## API List and Samples
-
-API:
-- `GET /api/v1/adsim/health`
-- `POST /api/v1/adsim/data/upload`
-- `POST /api/v1/adsim/metrics/compute`
-- `POST /api/v1/adsim/strategy/compare`
-- `POST /api/v1/adsim/report/export`
-- `GET /api/v1/adsim/report/download/{report_id}`
-
-Samples:
-- `samples/ad_log.csv`
-- `samples/orders.csv`
-- `samples/ad_log_100.csv`
-- `samples/orders_100.csv`
-- `samples/metrics_request.json`
-- `samples/compare_request.json`
-
-Usage guide:
-- `docs/USAGE-EN.md`
-
-## Quick Start (Windows)
-
-### Requirements
-
-- Node.js 18+
-- Python 3.11+
-- uv (Python package manager)
-
-### Install
-
-```powershell
-cd .
-
-# All-in-one install (root + frontend + backend)
-npm run setup:all
-```
-
-### Run
-
-```powershell
-cd .
-
-# Start frontend + backend
-npm run dev
-```
-
-Default ports:
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:5001`
-
-Health check:
-
-```powershell
-curl.exe "http://localhost:5001/health"
-```
-
-Expected:
-
-```json
-{"status":"ok","service":"Adsim Backend"}
-```
-
-## Docker (Multi-Container)
-
-```powershell
-docker compose up --build
-```
-
-Frontend/Backend:
-- `http://localhost:3000`
-- `http://localhost:5001`
-
-Override for local backend:
-
-```powershell
-docker compose -f docker-compose.yml -f docker-compose.override.local.yml up --build
-```
+- **Adsim data pipeline**: ad/order data-driven comparison and report export (offline).  
+- **Original simulation entry**: text/file-driven multi-agent simulation (requires LLM).  
+- **Adsim Insight (based on BettaFish)**: optional public-opinion/text analysis module, not required for the competition main demo.  
 
 ## 3-Minute Demo
 
-1) Upload sample CSV (get dataset_id)
+> Use `samples/` data and templates. This flow is fully offline-capable.
+
+### Option A: UI (recommended for demo)
+
+1) Import: `/adsim/import`  
+2) Upload `samples/ad_log.csv` and `samples/orders.csv`  
+3) Strategy config: `/adsim/strategy`  
+4) Compare view: `/adsim/compare`  
+5) Click “Export Report”  
+
+### Option B: API (PowerShell)
+
+1) Upload data (get dataset_id)
 
 ```powershell
 curl.exe -X POST "http://localhost:5001/api/v1/adsim/data/upload" `
@@ -180,9 +68,9 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/data/upload" `
   -F "table_type=ad_log"
 ```
 
-2) Strategy compare (use samples request)
+2) Strategy compare
 
-Edit `samples/compare_request.json` and set `dataset_id`.
+Edit `samples/compare_request.json` and set `dataset_id` from step 1.
 
 ```powershell
 curl.exe -X POST "http://localhost:5001/api/v1/adsim/strategy/compare" `
@@ -209,38 +97,195 @@ curl.exe -X POST "http://localhost:5001/api/v1/adsim/report/export" `
   -d "@$export"
 ```
 
-Open the returned `download_url` in a browser.
+Open the returned `download_url`:  
+`http://localhost:5001/api/v1/adsim/report/download/<report_id>`
 
-## Project Structure
+## Quick Start (Windows PowerShell)
+
+### Requirements
+
+- Node.js 18+  
+- Python 3.11+  
+- uv (Python package manager)  
+- Docker (optional, for Adsim Insight)
+
+### Install
+
+```powershell
+cd .
+npm run setup:all
+```
+
+### Run
+
+```powershell
+cd .
+npm run dev
+```
+
+Default ports:  
+- Frontend: `http://localhost:3000`  
+- Backend: `http://localhost:5001`
+
+Health check:
+
+```powershell
+curl.exe "http://localhost:5001/health"
+```
+
+Expected:
+
+```json
+{"status":"ok","service":"Adsim Backend"}
+```
+
+## Frontend Routes
+
+- Home: `/`  
+- Data import: `/adsim/import`  
+- Strategy config: `/adsim/strategy`  
+- Compare results: `/adsim/compare`  
+
+Original simulation routes (from MiroFish):  
+- `/process/:projectId`  
+- `/simulation/:simulationId`  
+- `/simulation/:simulationId/start`  
+- `/report/:reportId`  
+- `/interaction/:reportId`  
+
+## Key APIs
+
+- `GET /health`  
+- `GET /api/v1/adsim/health`  
+- `POST /api/v1/adsim/data/upload`  
+- `POST /api/v1/adsim/metrics/compute`  
+- `POST /api/v1/adsim/strategy/compare`  
+- `POST /api/v1/adsim/report/export`  
+- `GET /api/v1/adsim/report/download/{report_id}`  
+
+## Data Specs & Metrics
+
+### ad_log
+
+| Field | Type | Description |
+| --- | --- | --- |
+| ad_id | string | Campaign or ad ID |
+| impressions | int | Impressions |
+| clicks | int | Clicks |
+| date | datetime | Date |
+| spend | float | Spend (optional) |
+| gmv | float | GMV (optional) |
+| conversions | int | Conversions (optional) |
+
+### orders
+
+| Field | Type | Description |
+| --- | --- | --- |
+| order_id | string | Order ID |
+| user_id | string | User ID |
+| amount | float | Amount (or gmv) |
+| order_date | datetime | Order date |
+| gross_profit | float | Gross profit (optional) |
+| refund_orders | int | Refund order count (optional) |
+| is_refund | bool | Refund flag (optional) |
+
+### Metric Definitions
+
+- **CTR** = clicks / impressions  
+- **CVR** = orders / clicks (or conversions / clicks)  
+- **CPA** = spend / orders  
+- **ROI_GP** = gross_profit / spend (fallback to gmv * margin_rate)  
+- **Refund Rate** = refund_orders / total_orders  
+
+## Architecture & Structure
+
+### Architecture (ASCII)
+
+```
+Frontend (Vite+Vue) -> Adsim API (Flask) -> Metrics / Compare / Report
+                           |
+                           +-- Optional: Adsim Insight (BettaFish)
+```
+
+### Project Structure
 
 ```
 AdSim/
-|-- backend/                 # Flask backend
-|-- frontend/                # Vite + Vue frontend
-|-- samples/                 # Sample datasets and requests
-|-- docs/                    # Competition docs
-|-- static/                  # Static images
-`-- README-EN.md
+├─ archive/                 # Archived non-demo resources
+├─ backend/                 # Flask backend
+├─ docs/                    # Competition docs
+├─ frontend/                # Vite + Vue frontend
+├─ samples/                 # Sample data & requests
+├─ static/                  # Static images
+├─ third_party/             # Adsim Insight (BettaFish)
+└─ tools/                   # Utility scripts
 ```
 
-Note: `data_store/`, `cache/`, and `reports/` are runtime outputs generated on demand and should not be committed.
+Note: `data_store/`, `cache/`, and `reports/` are runtime outputs and should not be committed.
+
+## Comparison vs. Alternatives
+
+| Category | Typical Form | Coverage | Explainability | Rehearsal/Uncertainty | Deployment Cost | Competition Fit | Adsim Advantage |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Traditional BI | Tableau/PowerBI/custom reports | Strong reporting | Medium | No | Medium | Medium | Adsim adds rehearsal + evidence cards |
+| Ad Platform Backend | Native platform dashboards | Strong platform data | Low-Med | No | High (platform bound) | Medium | Adsim is offline & explainable |
+| Attribution Tools | Marketing attribution products | Strong attribution | Medium | No | Med-High | Medium | Adsim focuses on strategy rehearsal |
+| Prediction Demos | Academic/contest models | Strong prediction | Low | No | Low | Low-Med | Adsim provides end-to-end loop |
+
+**Key differentiation**: strategy rehearsal, interval uncertainty, evidence cards, one-click report, offline demo stability.
+
+## Innovation / Creativity / Entrepreneurship
+
+### Innovation
+- Evidence-card driven explainability for A/B/C strategy comparison.  
+- Interval estimates for risk-aware decisions.  
+- One-click report export for competition defense.  
+
+### Creativity
+- “3-minute demo loop” designed for judges.  
+- UI + API dual entry for flexibility.  
+- Optional Adsim Insight for future expansion.  
+
+### Entrepreneurship
+- Aligns with real e-commerce ad workflow.  
+- Offline-ready deployment lowers adoption barrier.  
+- Report templates as deliverable for commercialization.  
+
+## Screenshots & Assets
+
+Existing assets in this repo (replace files to update):
+- Import: `./docs/ui-import.png`  
+- Strategy: `./docs/ui-strategy.png`  
+- Compare: `./docs/ui-compare.png`  
+- Architecture: `./docs/architecture.png`  
+- Flow: `./docs/flow.png`  
+
+![Import](./docs/ui-import.png)
+![Strategy](./docs/ui-strategy.png)
+![Compare](./docs/ui-compare.png)
+
+## Compliance & Third-Party
+
+- Main license: `./LICENSE` (AGPL-3.0)  
+- Adsim Insight (BettaFish) license: `./third_party/BettaFish/LICENSE` (GPL-2.0)  
+- Third-Party notices: `./THIRD_PARTY_NOTICES.md`  
 
 ## FAQ
 
 ### 1) Port in use
 
-- Frontend 3000 busy -> Vite switches to 3001/3002
-- Backend 5001 busy -> close the process or set `FLASK_PORT`
+- Frontend 3000 busy -> Vite switches to 3001/3002  
+- Backend 5001 busy -> close the process or set `FLASK_PORT`  
 
 ### 2) .env config
 
 Backend uses `.env` for external services. Template: `.env.example`.  
-For Adsim demo flow only, you can keep defaults without external LLM calls.
+For Adsim data pipeline demo, you can keep defaults without external LLM calls.
 
 ### 3) Install issues
 
-- Ensure Node `>=18`, Python `>=3.11`
-- Use `npm run setup:all`
+- Ensure Node `>=18`, Python `>=3.11`  
+- Use `npm run setup:all`  
 - If backend fails:
 
 ```powershell
@@ -248,7 +293,10 @@ cd backend
 uv sync
 ```
 
-## Credits
+## Pre-Submit Checklist
 
-Competition-focused adaptation based on:
-https://github.com/666ghj/MiroFish
+- `git status` is clean  
+- `.gitignore` excludes runtime artifacts  
+- `npm run dev` starts both services  
+- `curl.exe "http://localhost:5001/health"` returns `ok`  
+- `strategy/compare` and `report/export` respond correctly  

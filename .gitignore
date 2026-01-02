@@ -52,6 +52,7 @@ mytest/
 backend/logs/
 *.log
 .tmp-devserver.*
+logs/
 
 # 上传文件
 backend/uploads/
@@ -65,3 +66,11 @@ data_store/
 reports/*
 !reports/sample/
 !reports/sample/**
+
+# BettaFish 运行产物
+third_party/BettaFish/logs/
+third_party/BettaFish/final_reports/
+third_party/BettaFish/insight_engine_streamlit_reports/
+third_party/BettaFish/media_engine_streamlit_reports/
+third_party/BettaFish/query_engine_streamlit_reports/
+third_party/BettaFish/db_data/
