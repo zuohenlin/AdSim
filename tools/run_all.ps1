@@ -56,8 +56,8 @@ function Test-DockerDaemon {
         return $false
     }
     try {
-        docker info | Out-Null
-        return $true
+        cmd /c "docker info >nul 2>nul"
+        return ($LASTEXITCODE -eq 0)
     } catch {
         return $false
     }
@@ -118,8 +118,8 @@ if ($Mode -in @("all", "adsim")) {
     if (Test-Command -Name "npm") {
         $adsimEnv = "$rootPath/.env"
         if (-not (Test-EnvFile -Path $adsimEnv)) {
-            Write-Host "Adsim .env not found. Copy .env.example and fill keys if needed:" -ForegroundColor Yellow
-            Write-Host "Copy-Item `"$rootPath/.env.example`" `"$rootPath/.env`""
+            Write-Host "Adsim .env not found. Copy .env.example and fill keys if needed:" -ForegroundColor Red
+            Write-Host "Copy-Item `"$rootPath/.env.example`" `"$rootPath/.env`"" -ForegroundColor Red
         }
         Write-Host "Starting Adsim (frontend + backend)..." -ForegroundColor Cyan
         $adsimCmd = "cd `"$rootPath`"; npm run dev"
@@ -130,20 +130,21 @@ if ($Mode -in @("all", "adsim")) {
 }
 
 if ($Mode -in @("all", "insight")) {
+    $insightEnv = "$rootPath/third_party/BettaFish/.env"
+    if (-not (Test-EnvFile -Path $insightEnv)) {
+        Write-Host "Adsim Insight .env not found. Copy .env.example and fill API keys:" -ForegroundColor Red
+        Write-Host "Copy-Item `"$rootPath/third_party/BettaFish/.env.example`" `"$rootPath/third_party/BettaFish/.env`"" -ForegroundColor Red
+        Write-Host "Skip Adsim Insight start." -ForegroundColor Red
+        return
+    }
     if (Test-DockerDaemon) {
-        $insightEnv = "$rootPath/third_party/BettaFish/.env"
-        if (-not (Test-EnvFile -Path $insightEnv)) {
-            Write-Host "Adsim Insight .env not found. Copy .env.example and fill API keys:" -ForegroundColor Yellow
-            Write-Host "Copy-Item `"$rootPath/third_party/BettaFish/.env.example`" `"$rootPath/third_party/BettaFish/.env`""
-            Write-Host "Skip Adsim Insight start." -ForegroundColor Yellow
-            return
-        }
         Write-Host "Starting Adsim Insight (based on BettaFish) via Docker Compose..." -ForegroundColor Cyan
         Push-Location "$rootPath"
         docker compose -f "$rootPath/docker-compose.bettafish.yml" up -d
         Pop-Location
     } else {
-        Write-Host "Docker Desktop is not running. Start Docker Desktop and press Enter to retry." -ForegroundColor Yellow
+        Write-Host "Docker Desktop is not running. Please start Docker Desktop first." -ForegroundColor Red
+        Write-Host "Tip: Open 'Docker Desktop' from Start Menu and wait for Engine Running." -ForegroundColor Red
         Read-Host "Press Enter after Docker Desktop is running"
         if (Test-DockerDaemon) {
             Write-Host "Starting Adsim Insight (based on BettaFish) via Docker Compose..." -ForegroundColor Cyan
@@ -151,7 +152,7 @@ if ($Mode -in @("all", "insight")) {
             docker compose -f "$rootPath/docker-compose.bettafish.yml" up -d
             Pop-Location
         } else {
-            Write-Host "Docker Desktop is still not running. Skip Adsim Insight start." -ForegroundColor Yellow
+            Write-Host "Docker Desktop is still not running. Skip Adsim Insight start." -ForegroundColor Red
         }
     }
 }
