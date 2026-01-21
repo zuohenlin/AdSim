@@ -67,10 +67,10 @@ reports/*
 !reports/sample/
 !reports/sample/**
 
-# BettaFish 运行产物
-third_party/BettaFish/logs/
-third_party/BettaFish/final_reports/
-third_party/BettaFish/insight_engine_streamlit_reports/
-third_party/BettaFish/media_engine_streamlit_reports/
-third_party/BettaFish/query_engine_streamlit_reports/
-third_party/BettaFish/db_data/
+# EchoLens-Insight-Data 运行产物
+third_party/EchoLens-Insight-Data/logs/
+third_party/EchoLens-Insight-Data/final_reports/
+third_party/EchoLens-Insight-Data/insight_engine_streamlit_reports/
+third_party/EchoLens-Insight-Data/media_engine_streamlit_reports/
+third_party/EchoLens-Insight-Data/query_engine_streamlit_reports/
+third_party/EchoLens-Insight-Data/db_data/

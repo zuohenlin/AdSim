@@ -18,11 +18,11 @@ services:
     depends_on:
       - echolens-insight-db
     volumes:
-      - ./third_party/EchoLens-Insight/logs:/app/logs
-      - ./third_party/EchoLens-Insight/final_reports:/app/final_reports
-      - ./third_party/EchoLens-Insight/insight_engine_streamlit_reports:/app/insight_engine_streamlit_reports
-      - ./third_party/EchoLens-Insight/media_engine_streamlit_reports:/app/media_engine_streamlit_reports
-      - ./third_party/EchoLens-Insight/query_engine_streamlit_reports:/app/query_engine_streamlit_reports
+      - ./third_party/EchoLens-Insight-Data/logs:/app/logs
+      - ./third_party/EchoLens-Insight-Data/final_reports:/app/final_reports
+      - ./third_party/EchoLens-Insight-Data/insight_engine_streamlit_reports:/app/insight_engine_streamlit_reports
+      - ./third_party/EchoLens-Insight-Data/media_engine_streamlit_reports:/app/media_engine_streamlit_reports
+      - ./third_party/EchoLens-Insight-Data/query_engine_streamlit_reports:/app/query_engine_streamlit_reports
     env_file:
       - ./third_party/EchoLens-Insight/.env
 
@@ -37,6 +37,6 @@ services:
     ports:
       - "5444:5432"
     volumes:
-      - ./third_party/EchoLens-Insight/db_data:/var/lib/postgresql/data
+      - ./third_party/EchoLens-Insight-Data/db_data:/var/lib/postgresql/data
     env_file:
       - ./third_party/EchoLens-Insight/.env
